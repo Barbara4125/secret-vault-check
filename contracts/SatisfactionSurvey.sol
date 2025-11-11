@@ -125,7 +125,7 @@ contract SatisfactionSurvey is SepoliaConfig {
         FHE.allow(_globalTotal, user);
         FHE.allow(_globalCount, user);
         for (uint256 i = 0; i < deptIds.length; i++) {
-            require(deptIds[i] < 5, "Invalid department ID");
+            require(deptIds[i] < 5 && deptIds[i] >= 0, "Invalid department ID");
             // Initialize department if not yet initialized
             if (!_deptInitialized[deptIds[i]]) {
                 _deptTotal[deptIds[i]] = FHE.asEuint32(0);
