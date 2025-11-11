@@ -56,6 +56,7 @@ contract SatisfactionSurvey is SepoliaConfig {
         bytes calldata oneProof
     ) external {
         euint32 score = FHE.fromExternal(encScore, scoreProof);
+        require(deptId >= 0, "Invalid department ID");
         euint32 one = FHE.fromExternal(encOne, oneProof);
 
         // Gas optimization - improved: batch permission updates
@@ -79,13 +80,14 @@ contract SatisfactionSurvey is SepoliaConfig {
             _deptInitialized[deptId] = true;
         }
 
+        // Allow contract and decrypt manager to handle/decrypt new ciphertexts
+        FHE.allowThis(_globalTotal);
+        FHE.allowThis(_globalCount);
+
         // Update department aggregates
         _deptTotal[deptId] = FHE.add(_deptTotal[deptId], score);
         _deptCount[deptId] = FHE.add(_deptCount[deptId], one);
 
-        // Allow contract and decrypt manager to handle/decrypt new ciphertexts
-        FHE.allowThis(_globalTotal);
-        FHE.allowThis(_globalCount);
         FHE.allowThis(_deptTotal[deptId]);
         FHE.allowThis(_deptCount[deptId]);
 
@@ -123,6 +125,7 @@ contract SatisfactionSurvey is SepoliaConfig {
         FHE.allow(_globalTotal, user);
         FHE.allow(_globalCount, user);
         for (uint256 i = 0; i < deptIds.length; i++) {
+            require(deptIds[i] < 5, "Invalid department ID");
             // Initialize department if not yet initialized
             if (!_deptInitialized[deptIds[i]]) {
                 _deptTotal[deptIds[i]] = FHE.asEuint32(0);

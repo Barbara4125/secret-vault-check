@@ -210,10 +210,10 @@ function SurveyMVP() {
 
   const canSubmit = useMemo(() => {
       const ratingNum = Number.parseInt(rating);
-      const ratingOk = Number.isInteger(ratingNum) && ratingNum >= 1 && ratingNum <= 10;
+      const ratingOk = ratingNum >= 1 && ratingNum <= 10;
       const chainOk = chainId === 31337 || chainId === 11155111;
       const result = deployed && address && chainOk && fhe.isReady && ratingOk && dept >= 0;
-      
+
       // Debug logging
       if (!result) {
       console.log("[Submit] Button disabled:", {
@@ -228,7 +228,7 @@ function SurveyMVP() {
         dept,
       });
       }
-      
+
       return result;
   }, [deployed, address, chainId, fhe.isReady, fhe.loading, fhe.error, rating, dept]);
 
@@ -260,7 +260,15 @@ function SurveyMVP() {
         data: e?.data,
         stack: e?.stack
       });
+      console.error("[Submit] Error details:", {
+        message: e?.message,
+        code: e?.code,
+        data: e?.data,
+        stack: e?.stack
+      });
       console.error("[Submit] Submission failed:", e);
+      console.error("[Submit] Error details:", e);
+      console.error("[Submit] Transaction failed:", e);
       alert("Submit failed: " + (e?.message ?? String(e)));
       }
   };
@@ -294,13 +302,7 @@ function SurveyMVP() {
                   <select
                   className="w-full mt-2 border rounded-md px-3 py-2 bg-background"
                   value={dept}
-                  onChange={(e) => {
-                    const newDept = parseInt(e.target.value);
-                    setDept(newDept);
-                    // Reset department aggregates when department changes
-                    setDeptTotal(0n);
-                    setDeptCount(0n);
-                  }}
+                  onChange={(e) => {`n                    const newDept = parseInt(e.target.value);`n                    setDept(newDept);`n                    // Reset department aggregates when department changes`n                    setDeptTotal(0n);`n                    setDeptCount(0n);`n                  }}
                   >
                   {DEPARTMENTS.map((d) => (
                     <option key={d.id} value={d.id}>{d.name}</option>
