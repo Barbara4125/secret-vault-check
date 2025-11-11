@@ -210,7 +210,7 @@ function SurveyMVP() {
 
   const canSubmit = useMemo(() => {
       const ratingNum = Number.parseInt(rating);
-      const ratingOk = ratingNum >= 1 && ratingNum <= 10;
+      const ratingOk = Number.isInteger(ratingNum) && ratingNum >= 1 && ratingNum <= 10;
       const chainOk = chainId === 31337 || chainId === 11155111;
       const result = deployed && address && chainOk && fhe.isReady && ratingOk && dept >= 0;
 
