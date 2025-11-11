@@ -56,8 +56,8 @@ contract SatisfactionSurvey is SepoliaConfig {
         bytes calldata oneProof
     ) external {
         euint32 score = FHE.fromExternal(encScore, scoreProof);
-        require(deptId >= 0, "Invalid department ID");
         euint32 one = FHE.fromExternal(encOne, oneProof);
+        require(deptId < 5 && deptId >= 0, "Invalid department ID");
 
         // Gas optimization - improved: batch permission updates
         // Reduces storage operations by grouping allow() calls
