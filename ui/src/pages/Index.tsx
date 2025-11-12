@@ -13,6 +13,10 @@ const DEPARTMENTS = [
   { id: 4, name: "Finance" },
 ];
 
+function formatAverage(total: bigint, count: bigint): string {
+  return count === 0n ? "-" : (Number(total) / Number(count)).toFixed(2);
+}
+
 function SurveyMVP() {
   const chainId = useChainId();
   const { address } = useAccount();
@@ -349,12 +353,12 @@ function SurveyMVP() {
 
             <div className="rounded-xl border border-border p-6 space-y-2">
             <h2 className="text-lg font-semibold">Global Aggregates</h2>
-            <p className="text-sm">Total: {globalTotal.toString()} | Count: {globalCount.toString()} | Avg: {globalCount === 0n ? "-" : (Number(globalTotal) / Number(globalCount)).toFixed(2)}</p>
+            <p className="text-sm">Total: {globalTotal.toString()} | Count: {globalCount.toString()} | Avg: {formatAverage(globalTotal, globalCount)}</p>
             </div>
 
             <div className="rounded-xl border border-border p-6 space-y-2">
             <h2 className="text-lg font-semibold">{DEPARTMENTS.find(d => d.id === dept)?.name || "Department"} Aggregates</h2>
-            <p className="text-sm">Total: {deptTotal.toString()} | Count: {deptCount.toString()} | Avg: {deptCount === 0n ? "-" : (Number(deptTotal) / Number(deptCount)).toFixed(2)}</p>
+            <p className="text-sm">Total: {deptTotal.toString()} | Count: {deptCount.toString()} | Avg: {formatAverage(deptTotal, deptCount)}</p>
             </div>
         </div>
       </main>
