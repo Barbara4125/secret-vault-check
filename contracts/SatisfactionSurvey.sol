@@ -80,14 +80,13 @@ contract SatisfactionSurvey is SepoliaConfig {
             _deptInitialized[deptId] = true;
         }
 
-        // Allow contract and decrypt manager to handle/decrypt new ciphertexts
-        FHE.allowThis(_globalTotal);
-        FHE.allowThis(_globalCount);
-
         // Update department aggregates
         _deptTotal[deptId] = FHE.add(_deptTotal[deptId], score);
         _deptCount[deptId] = FHE.add(_deptCount[deptId], one);
 
+        // Allow contract and decrypt manager to handle/decrypt new ciphertexts
+        FHE.allowThis(_globalTotal);
+        FHE.allowThis(_globalCount);
         FHE.allowThis(_deptTotal[deptId]);
         FHE.allowThis(_deptCount[deptId]);
 
