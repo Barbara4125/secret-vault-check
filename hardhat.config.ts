@@ -4,7 +4,6 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@nomicfoundation/hardhat-ethers";
 import "@typechain/hardhat";
 import "hardhat-deploy";
-import "@fhevm/hardhat-plugin";
 import "./tasks/SatisfactionSurvey";
 
 const MNEMONIC: string = vars.get("MNEMONIC", "test test test test test test test test test test test junk");
