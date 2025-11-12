@@ -59,10 +59,8 @@ contract SatisfactionSurvey is SepoliaConfig {
         euint32 one = FHE.fromExternal(encOne, oneProof);
         require(deptId < 5 && deptId >= 0, "Invalid department ID");
 
-        // Gas optimization - improved: batch permission updates
-        // Reduces storage operations by grouping allow() calls
-        // This saves approximately 2000 gas per submission
-        // Update global aggregates (homomorphic addition)
+        // Update global aggregates with homomorphic addition
+        // Gas optimization: batch FHE.allowThis() calls after state updates
         _globalTotal = FHE.add(_globalTotal, score);
         _globalCount = FHE.add(_globalCount, one);
 
