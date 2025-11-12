@@ -260,15 +260,7 @@ function SurveyMVP() {
         data: e?.data,
         stack: e?.stack
       });
-      console.error("[Submit] Error details:", {
-        message: e?.message,
-        code: e?.code,
-        data: e?.data,
-        stack: e?.stack
-      });
       console.error("[Submit] Submission failed:", e);
-      console.error("[Submit] Error details:", e);
-      console.error("[Submit] Transaction failed:", e);
       alert("Submit failed: " + (e?.message ?? String(e)));
       }
   };
