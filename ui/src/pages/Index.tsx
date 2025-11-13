@@ -210,7 +210,7 @@ function SurveyMVP() {
       }
       };
       run();
-  }, [deployed, contractAddress, fhe.isReady, address, chainId, fhe.decryptMultiple, dept]);
+  }, [deployed, contractAddress, fhe.isReady, address, chainId, dept]);
 
   const canSubmit = useMemo(() => {
       const ratingNum = Number.parseInt(rating);
