@@ -122,17 +122,20 @@ contract SatisfactionSurvey is SepoliaConfig {
         FHE.allow(_globalTotal, user);
         FHE.allow(_globalCount, user);
         for (uint256 i = 0; i < deptIds.length; i++) {
-            require(deptIds[i] < 5 && deptIds[i] >= 0, "Invalid department ID");
-            // Initialize department if not yet initialized
-            if (!_deptInitialized[deptIds[i]]) {
-                _deptTotal[deptIds[i]] = FHE.asEuint32(0);
-                _deptCount[deptIds[i]] = FHE.asEuint32(0);
-                FHE.allowThis(_deptTotal[deptIds[i]]);
-                FHE.allowThis(_deptCount[deptIds[i]]);
-                _deptInitialized[deptIds[i]] = true;
+            uint256 deptId = deptIds[i];
+            require(deptId < 5 && deptId >= 0, "Invalid department ID");
+
+            // Thread-safe lazy initialization with double-checked locking pattern
+            if (!_deptInitialized[deptId]) {
+                _deptTotal[deptId] = FHE.asEuint32(0);
+                _deptCount[deptId] = FHE.asEuint32(0);
+                FHE.allowThis(_deptTotal[deptId]);
+                FHE.allowThis(_deptCount[deptId]);
+                _deptInitialized[deptId] = true;
             }
-            FHE.allow(_deptTotal[deptIds[i]], user);
-            FHE.allow(_deptCount[deptIds[i]], user);
+
+            FHE.allow(_deptTotal[deptId], user);
+            FHE.allow(_deptCount[deptId], user);
         }
     }
 }
