@@ -81,9 +81,9 @@ function SurveyMVP() {
         
         // Helper function to validate handle
         const isValidHandle = (handle: string): boolean => {
-            return !!(handle && 
-                   handle !== "0x" && 
-                   handle.length >= 66 &&
+            return !!(handle &&
+                   handle.startsWith("0x") &&
+                   handle.length === 66 &&
                    handle !== "0x0000000000000000000000000000000000000000000000000000000000000000" &&
                    /^0x[0-9a-fA-F]{64}$/.test(handle));
         };
