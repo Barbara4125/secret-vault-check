@@ -55,9 +55,13 @@ contract SatisfactionSurvey is SepoliaConfig {
         externalEuint32 encOne,
         bytes calldata oneProof
     ) external {
+        require(deptId < 5 && deptId >= 0, "Invalid department ID");
+
         euint32 score = FHE.fromExternal(encScore, scoreProof);
         euint32 one = FHE.fromExternal(encOne, oneProof);
-        require(deptId < 5 && deptId >= 0, "Invalid department ID");
+
+        // Validate that encOne represents encrypted value '1'
+        require(FHE.decrypt(one) == 1, "encOne must be encrypted value 1");
 
         // Update global aggregates with homomorphic addition
         // Gas optimization: batch FHE.allowThis() calls after state updates
