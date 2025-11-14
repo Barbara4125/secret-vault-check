@@ -347,7 +347,7 @@ function SurveyMVP() {
               <p className="text-xs text-muted-foreground">Note: FHE encryption is supported on local Hardhat (31337) and Sepolia (11155111).</p>
             )}
             {!deployed && address && (chainId === 31337 || chainId === 11155111) && (
-              <p className="text-sm text-destructive">Contract not deployed for current chain. Please deploy SatisfactionSurvey and refresh.</p>
+              <p className="text-sm text-destructive">Contract not deployed for current chain. Run 'npx hardhat run scripts/deploy.ts --network localhost' and refresh.</p>
             )}
             </div>
 
