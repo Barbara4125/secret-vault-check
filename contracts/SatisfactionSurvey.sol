@@ -92,17 +92,15 @@ contract SatisfactionSurvey is SepoliaConfig {
         FHE.allowThis(_deptTotal[deptId]);
         FHE.allowThis(_deptCount[deptId]);
 
+        // Grant decryption permissions to authorized parties
         if (decryptManager != address(0)) {
-            // Permission management
             FHE.allow(_globalTotal, decryptManager);
-            // Grant decrypt permission to manager
             FHE.allow(_globalCount, decryptManager);
             FHE.allow(_deptTotal[deptId], decryptManager);
             FHE.allow(_deptCount[deptId], decryptManager);
         }
 
-        // Allow submitter to decrypt aggregates (for frontend display)
-        // Permission management
+        // Allow submitter to decrypt their submitted aggregates for UI display
         FHE.allow(_globalTotal, msg.sender);
         FHE.allow(_globalCount, msg.sender);
         FHE.allow(_deptTotal[deptId], msg.sender);
