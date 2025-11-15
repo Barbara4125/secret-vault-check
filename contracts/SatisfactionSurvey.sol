@@ -24,7 +24,7 @@ contract SatisfactionSurvey is SepoliaConfig {
     mapping(uint256 => bool) private _deptInitialized;
 
     /// @param manager Address authorized to decrypt aggregates
-    constructor(address manager) {
+    constructor(address manager) payable {
         decryptManager = manager;
 
         // Initialize encrypted aggregates to encrypted zero
