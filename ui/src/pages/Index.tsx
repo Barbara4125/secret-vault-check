@@ -32,6 +32,7 @@ function SurveyMVP() {
   const [dept, setDept] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [rating, setRating] = useState<string>("5");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const write = useWriteContract();
   const fhe = useFhevm(chainId);
@@ -237,6 +238,8 @@ function SurveyMVP() {
   }, [deployed, address, chainId, fhe.isReady, fhe.loading, fhe.error, rating, dept]);
 
   const onSubmit = async () => {
+      if (isSubmitting) return;
+      setIsSubmitting(true);
       try {
       const ratingNum = Number.parseInt(rating);
       if (!canSubmit || !contractAddress || !address) return;
@@ -266,7 +269,10 @@ function SurveyMVP() {
       });
       console.error("[Submit] Submission failed:", e);
       alert("Submit failed: " + (e?.message ?? String(e)));
+      } finally {
+        setIsSubmitting(false);
       }
+    };
   };
 
   return (
