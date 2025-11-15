@@ -292,7 +292,7 @@ function SurveyMVP() {
             </div>
 
             <div className="rounded-xl border border-border p-6 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                   <label className="text-sm text-muted-foreground">Department</label>
                   <select
