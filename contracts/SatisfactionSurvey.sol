@@ -120,6 +120,8 @@ contract SatisfactionSurvey is SepoliaConfig {
     /// @notice Allow a user to decrypt global and department aggregates
     /// @dev Anyone can call this to get permission to decrypt public statistics
     function allowUserToDecrypt(address user, uint256[] calldata deptIds) external {
+        require(user != address(0), "Invalid user address");
+        require(deptIds.length > 0, "Must specify at least one department");
         // Permission management
         FHE.allow(_globalTotal, user);
         FHE.allow(_globalCount, user);
