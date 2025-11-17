@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState, useRef } from "react";
+﻿import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useAccount, useChainId, useWriteContract } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useFhevm } from "../hooks/useFhevm";
@@ -237,7 +237,7 @@ function SurveyMVP() {
       return result;
   }, [deployed, address, chainId, fhe.isReady, fhe.loading, fhe.error, rating, dept]);
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
       if (isSubmitting) return;
       setIsSubmitting(true);
       try {
@@ -272,7 +272,7 @@ function SurveyMVP() {
       } finally {
         setIsSubmitting(false);
       }
-    };
+    }, [isSubmitting, canSubmit, contractAddress, address, rating, fhe, write, dept]);
   };
 
   return (
