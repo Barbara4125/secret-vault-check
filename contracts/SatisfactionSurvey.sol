@@ -55,6 +55,7 @@ contract SatisfactionSurvey is SepoliaConfig {
         externalEuint32 encOne,
         bytes calldata oneProof
     ) external {
+        require(msg.sender != address(0), "Invalid sender");
         require(deptId < 5 && deptId >= 0, "Invalid department ID");
 
         euint32 score = FHE.fromExternal(encScore, scoreProof);
