@@ -304,6 +304,7 @@ function SurveyMVP() {
                   <select
                   className="w-full mt-2 border rounded-md px-3 py-2 bg-background"
                   value={dept}
+                  aria-label="Select your department"
                   onChange={(e) => {`n                    const newDept = parseInt(e.target.value);`n                    setDept(newDept);`n                    // Reset department aggregates when department changes`n                    setDeptTotal(0n);`n                    setDeptCount(0n);`n                  }}
                   >
                   {DEPARTMENTS.map((d) => (
@@ -318,6 +319,7 @@ function SurveyMVP() {
                   min={1}
                   max={10}
                   value={rating}
+                  aria-label="Enter your satisfaction rating from 1 to 10"
                   onChange={(e) => setRating(e.target.value)}
                   className="w-full mt-2 border rounded-md px-3 py-2 bg-background"
                   />
