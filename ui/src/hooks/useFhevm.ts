@@ -1,5 +1,4 @@
-﻿// feat: feat: improve UI responsiveness and styling
-import { useState, useEffect, useCallback } from "react";
+﻿import { useState, useEffect, useCallback } from "react";
 import { initializeFHEVM, encryptInput, resetFHEVMInstance, decryptEuint32, batchDecrypt } from "../lib/fhevm";
 import type { FhevmInstance } from "@zama-fhe/relayer-sdk/bundle";
 import { BrowserProvider } from "ethers";
@@ -23,30 +22,35 @@ export function useFhevm(chainId?: number) {
         return;
       }
 
-      // Only support local network and Sepolia
-      
-
       try {
         setError(null);
-
         console.log("[useFhevm] Starting FHEVM initialization, chainId:", chainId);
         
-        // 简化的初始化流程（参�?Linkedin 项目�?        const fhevmInstance = await initializeFHEVM(chainId);
+        const fhevmInstance = await initializeFHEVM(chainId);
 
         if (mounted) {
           setInstance(fhevmInstance);
           setLoading(false);
-          console.log("[useFhevm] �?FHEVM initialized successfully");
+          console.log("[useFhevm] FHEVM initialized successfully");
         } else {
           console.log("[useFhevm] Component unmounted, skipping state update");
         }
       } catch (err: any) {
-        console.error("[useFhevm] �?FHEVM initialization failed:", err);`n        // Provide more detailed error information`n        if (err?.message?.includes("network")) {`n          setError(new Error("Network error. Please check your connection and try again."));`n        } else if (err?.message?.includes("MetaMask")) {`n          setError(new Error("MetaMask not detected. Please install MetaMask to use this feature."));`n        }`n        // Provide more detailed error information`n        if (err?.message?.includes("network")) {`n          setError(new Error("Network error. Please check your connection and try again."));`n        } else if (err?.message?.includes("MetaMask")) {`n          setError(new Error("MetaMask not detected. Please install MetaMask to use this feature."));`n        }
+        console.error("[useFhevm] FHEVM initialization failed:", err);
+        
+        // Provide more detailed error information
+        if (err?.message?.includes("network")) {
+          setError(new Error("Network error. Please check your connection and try again."));
+        } else if (err?.message?.includes("MetaMask")) {
+          setError(new Error("MetaMask not detected. Please install MetaMask to use this feature."));
+        }
+        
         console.error("[useFhevm] Error details:", {
           message: err.message,
           stack: err.stack,
           name: err.name
         });
+        
         if (mounted) {
           setError(err);
           setLoading(false);
@@ -122,7 +126,3 @@ export function useFhevm(chainId?: number) {
     decryptMultiple,
   };
 }
-// Commit 10 - fix: improve FHEVM initialization error handling
-
-
-

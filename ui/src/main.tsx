@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 
 import '@rainbow-me/rainbowkit/styles.css'
-import { RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
 import { WagmiProvider, createConfig } from 'wagmi'
 import { hardhat, sepolia } from 'wagmi/chains'
 import { http } from 'viem'
@@ -30,7 +30,12 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <WagmiProvider config={config}>
-        <RainbowKitProvider theme={lightTheme({ borderRadius: 'large' })}>
+        <RainbowKitProvider theme={darkTheme({ 
+          accentColor: 'hsl(262, 83%, 58%)',
+          accentColorForeground: 'white',
+          borderRadius: 'large',
+          fontStack: 'system',
+        })}>
           <App />
         </RainbowKitProvider>
       </WagmiProvider>

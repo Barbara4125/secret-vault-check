@@ -1,4 +1,4 @@
-﻿export const SatisfactionSurveyABI = {
+export const SatisfactionSurveyABI = {
   "abi": [
     {
       "inputs": [
@@ -132,4 +132,3 @@
     }
   ]
 } as const;
-// Commit 20 - chore: update contract ABI interface

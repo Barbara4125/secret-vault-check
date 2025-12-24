@@ -2,8 +2,15 @@
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import tailwindcss from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
 
 export default defineConfig({
+  css: {
+    postcss: {
+      plugins: [tailwindcss(), autoprefixer()],
+    },
+  },
   server: {
     port: 8080,
     host: true,
