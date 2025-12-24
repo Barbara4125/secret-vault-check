@@ -19,7 +19,11 @@ try {
     const chainDirs = readdirSync(deploymentsPath);
     for (const chainDirName of chainDirs) {
       // Map directory name to actual chainId
-      const chainId = chainDirName === 'localhost' ? '31337' : chainDirName;
+      const chainIdMap = {
+        'localhost': '31337',
+        'sepolia': '11155111'
+      };
+      const chainId = chainIdMap[chainDirName] || chainDirName;
       const chainDeploymentPath = join(deploymentsPath, chainDirName);
       if (statSync(chainDeploymentPath).isDirectory()) {
         const files = readdirSync(chainDeploymentPath);
@@ -32,12 +36,15 @@ try {
             const filePath = join(chainDeploymentPath, file);
             const deployment = JSON.parse(readFileSync(filePath, 'utf8'));
             if (file === 'SatisfactionSurvey.json') {
-              abiFileContent.abi = deployment.abi;
-              addressesFileContent[chainId] = {
-                address: deployment.address,
-                chainId: parseInt(chainId),
-                chainName: chainId === '31337' ? 'hardhat' : chainId === '11155111' ? 'sepolia' : 'unknown'
-              };
+              const parsedChainId = parseInt(chainId);
+              if (!isNaN(parsedChainId)) {
+                abiFileContent.abi = deployment.abi;
+                addressesFileContent[chainId] = {
+                  address: deployment.address,
+                  chainId: parsedChainId,
+                  chainName: chainId === '31337' ? 'hardhat' : chainId === '11155111' ? 'sepolia' : 'unknown'
+                };
+              }
             }
             // Collect Mock FHEVM contract addresses
             if (file === 'MockACL.json') {

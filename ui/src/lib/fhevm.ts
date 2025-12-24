@@ -334,7 +334,7 @@ export async function batchDecrypt(
       
       // Use userDecrypt method directly (like proof-quill-shine project)
       // This works for both local and Sepolia networks
-      else {
+      if (!usePublicDecrypt) {
         console.log("[FHEVM] Using userDecrypt for ACL-protected decryption (like proof-quill-shine)...");
         
         // Check if userDecrypt is available
@@ -486,6 +486,10 @@ export async function batchDecrypt(
     console.error("[FHEVM] Batch decrypt failed:", error);
     throw error;
   }
+  
+  // This part should technically not be reached because of returns/throws above, 
+  // but it satisfies TypeScript's requirement for a return statement.
+  return {};
 }
 
 /**

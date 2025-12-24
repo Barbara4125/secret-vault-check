@@ -1,4 +1,5 @@
-﻿import { ConnectButton } from "@rainbow-me/rainbowkit";
+﻿/// <reference types="vite/client" />
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const WalletConnect = () => {
   const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string | undefined;
