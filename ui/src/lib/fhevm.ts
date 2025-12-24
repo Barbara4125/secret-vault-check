@@ -334,7 +334,7 @@ export async function batchDecrypt(
       
       // Use userDecrypt method directly (like proof-quill-shine project)
       // This works for both local and Sepolia networks
-      if (!usePublicDecrypt) {
+      else {
         console.log("[FHEVM] Using userDecrypt for ACL-protected decryption (like proof-quill-shine)...");
         
         // Check if userDecrypt is available

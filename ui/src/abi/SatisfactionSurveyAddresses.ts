@@ -6,7 +6,7 @@ export const SatisfactionSurveyAddresses: Record<string, { address: `0x${string}
   },
   "sepolia": {
     "address": "0x442da367a5c087DF8d416E920DBf0cAa02181f38",
-    "chainId": null,
-    "chainName": "unknown"
+    "chainId": 11155111,
+    "chainName": "sepolia"
   }
 };
