@@ -2,7 +2,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const WalletConnect = () => {
-  const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as string | undefined;
+  const projectId = (import.meta as any).env.VITE_WALLETCONNECT_PROJECT_ID as string | undefined;
   const hasProjectId = typeof projectId === "string" && projectId.length > 0 && projectId !== "WALLETCONNECT_PROJECT_ID_REQUIRED";
   
   return (

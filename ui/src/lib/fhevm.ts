@@ -328,14 +328,12 @@ export async function batchDecrypt(
           console.error(`[FHEVM] �?publicDecrypt failed:`, error.message);
           // Fall through to userDecryptHandleBytes32 fallback
           console.log("[FHEVM] Falling back to userDecryptHandleBytes32...");
-          usePublicDecrypt = false; // Mark that we should use fallback
         }
       }
       
       // Use userDecrypt method directly (like proof-quill-shine project)
       // This works for both local and Sepolia networks
-      if (!usePublicDecrypt) {
-        console.log("[FHEVM] Using userDecrypt for ACL-protected decryption (like proof-quill-shine)...");
+      console.log("[FHEVM] Using userDecrypt for ACL-protected decryption (like proof-quill-shine)...");
         
         // Check if userDecrypt is available
         if (typeof (fhevm as any).userDecrypt !== 'function') {
@@ -415,7 +413,6 @@ export async function batchDecrypt(
         }
         
         return decrypted;
-      }
     } else if (isSepoliaNetwork) {
       // For Sepolia network, use userDecrypt with signature (following Linkedin project)
       console.log("[FHEVM] Using userDecrypt (Sepolia network)");

@@ -40,8 +40,8 @@ try {
               if (!isNaN(parsedChainId)) {
                 abiFileContent.abi = deployment.abi;
                 addressesFileContent[chainId] = {
-                  address: deployment.address,
-                  chainId: parsedChainId,
+                  address: deployment.address || "0x0000000000000000000000000000000000000000",
+                  chainId: parsedChainId || 0,
                   chainName: chainId === '31337' ? 'hardhat' : chainId === '11155111' ? 'sepolia' : 'unknown'
                 };
               }
@@ -73,7 +73,7 @@ const abiContent = `export const SatisfactionSurveyABI = ${JSON.stringify(abiFil
 writeFileSync(join(abiOutputPath, 'SatisfactionSurveyABI.ts'), abiContent);
 
 // Write Addresses file
-const addressesContent = `export const SatisfactionSurveyAddresses: Record<string, { address: \`0x\${string}\`, chainId: number, chainName: string }> = ${JSON.stringify(addressesFileContent, null, 2)};`;
+const addressesContent = `export const SatisfactionSurveyAddresses: Record<string, { address: \`0x\${string}\`, chainId: number, chainName: string }> = ${JSON.stringify(addressesFileContent, null, 2)} as const;`;
 writeFileSync(join(abiOutputPath, 'SatisfactionSurveyAddresses.ts'), addressesContent);
 
 // Write Mock FHEVM Addresses file

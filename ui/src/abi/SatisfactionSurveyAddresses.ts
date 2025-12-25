@@ -9,4 +9,4 @@ export const SatisfactionSurveyAddresses: Record<string, { address: `0x${string}
     "chainId": 11155111,
     "chainName": "sepolia"
   }
-};
+} as const;

@@ -105,8 +105,8 @@ export default function Home() {
             </StaggerItem>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature, index) => (
-                <StaggerItem key={index}>
+              {features.map((feature) => (
+                <StaggerItem key={feature.title}>
                   <motion.div
                     whileHover={{ y: -8, scale: 1.02 }}
                     className="p-6 rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm h-full"
